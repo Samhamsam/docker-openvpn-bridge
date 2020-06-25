@@ -71,8 +71,9 @@ key-direction 1
 ```
 
 ## Iptables
+```
 iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
-
+```
 
 ## Network configuration
 ### Ubuntu 20.04
