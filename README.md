@@ -16,7 +16,7 @@ This container assumes you have a "/data" (or like) directory with your server c
 ```
 
 
-## Server Config
+## Server Config (eliptic curve)
 ```
 port 1194
 proto udp
@@ -25,7 +25,7 @@ ca certs/ca.crt
 cert certs/server.crt
 key certs/server.key  # This file should be kept secret
 dh none
-ecdh-curve secp521r1
+ecdh-curve secp521r1 #only if you use eliptic curve
 server-bridge 192.168.1.100 255.255.255.0 192.168.1.200 192.168.1.220
 keepalive 10 120
 tls-version-min 1.2
@@ -72,7 +72,7 @@ key-direction 1
 
 ## Iptables
 ```
-iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -I POSTROUTING -o <eth> -j MASQUERADE
 ```
 
 ## Network configuration
