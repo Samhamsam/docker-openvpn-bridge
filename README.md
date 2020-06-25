@@ -22,8 +22,8 @@ port 1194
 proto udp
 dev tap0
 ca certs/ca.crt
-cert certs/chserver.crt
-key certs/chserver.key  # This file should be kept secret
+cert certs/server.crt
+key certs/server.key  # This file should be kept secret
 dh none
 ecdh-curve secp521r1
 server-bridge 192.168.1.100 255.255.255.0 192.168.1.200 192.168.1.220
@@ -80,21 +80,24 @@ iptables -t nat -I POSTROUTING -o <eth> -j MASQUERADE
 ```
 network:
   ethernets:
-    eno1:
+    <eth>:
       dhcp4: no
   bridges:
     br0:
        dhcp4: no
-       interfaces: [eno1]
+       interfaces: [<eth>]
        addresses: [192.168.1.120/24]
        gateway4: 192.168.1.1
        nameservers:
          addresses: [1.1.1.1, 1.0.0.1]
   version: 2
 ```
-Please change it to your needs.
+Please change <eth> to your ethernet interface.
 
 # How to run the OpenVPN Docker Container?
 ```
 docker run -it -d --restart=always --name=openvpn  -p 1194:1194/udp --cap-add=NET_ADMIN -v /home/<name>/data/:/etc/openvpn --network=host samhamsam/openvpn-bridge
 ```
+
+# Sugestions?
+If you have any ideas how to improve this images please feel free to open an issue at https://github.com/Samhamsam/docker-openvpn-bridge/issues.

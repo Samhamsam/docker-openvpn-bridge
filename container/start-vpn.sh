@@ -23,7 +23,8 @@ chown -R nobody:nogroup /etc/openvpn
 chmod -R 700 /etc/openvpn
 
 echo "enable forwarding"
-sysctl -w net.ipv4.ip_forward=1
+
+#Please activate forwarding on the host.
 
 # Run actual OpenVPN
 exec /usr/sbin/openvpn --writepid /run/openvpn/server.pid --cd /etc/openvpn --config /etc/openvpn/server.conf --script-security 2
