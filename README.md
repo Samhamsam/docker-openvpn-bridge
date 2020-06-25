@@ -5,7 +5,7 @@ This container assumes you have a "/data" (or like) directory with your server c
 ```
 /data/certs:
   ca.crt
-  dh.pem
+  dh.pem (optional, you can also use an elliptic curve)
   server.crt
   server.key
   ta.key (technically "optional" - in reality a must for security)
@@ -69,6 +69,30 @@ key-direction 1
 # Insert "ta.key"
 </tls-auth>
 ```
+
+## Iptables
+iptables -t nat -I POSTROUTING -o <eth> -j MASQUERADE
+
+
+## Network configuration
+### Ubuntu 20.04
+/etc/netplan/00-installer-config.yaml
+```
+network:
+  ethernets:
+    eno1:
+      dhcp4: no
+  bridges:
+    br0:
+       dhcp4: no
+       interfaces: [eno1]
+       addresses: [192.168.1.120/24]
+       gateway4: 192.168.1.1
+       nameservers:
+         addresses: [1.1.1.1, 1.0.0.1]
+  version: 2
+```
+Please change it to your needs.
 
 # How to run the OpenVPN Docker Container?
 ```
