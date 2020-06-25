@@ -71,7 +71,7 @@ key-direction 1
 ```
 
 ## Iptables
-iptables -t nat -I POSTROUTING -o <eth> -j MASQUERADE
+iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
 
 
 ## Network configuration
