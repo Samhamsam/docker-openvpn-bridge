@@ -1,5 +1,8 @@
 #!/bin/bash
 # Needed for openvpn
+
+default_eth=$(ip r | grep default | grep -oP '(?<=dev )[^ ]*')
+
 mkdir -p /run/openvpn
 mkdir -p /dev/net
 mknod /dev/net/tun c 10 200
@@ -10,10 +13,10 @@ echo "create dev tap0 with openvpn --mktun"
 openvpn --mktun --dev tap0 ;
 
 echo "tap0 promisc on up"
-ip link set tap0 promisc on up ;
+ip link set tap0 promisc on up
 
-echo "eno1 promisc on up"
-ip link set eno1 promisc on up ;
+echo "$default_eth promisc on up"
+ip link set $default_eth promisc on up ;
 
 echo "add tap0 to br0"
 brctl addif br0 tap0 ;
