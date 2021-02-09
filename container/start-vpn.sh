@@ -1,7 +1,7 @@
 #!/bin/bash
 # Needed for openvpn
 
-default_eth=$(ip r | grep default | grep -oP '(?<=dev )[^ ]*')
+default_eth=$(ls /sys/class/net/ | grep '^en\w*')
 
 mkdir -p /run/openvpn
 mkdir -p /dev/net
